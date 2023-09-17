@@ -1,0 +1,36 @@
+{
+  "name": "localservicesreview",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodersArkX/localServicesReview.git"
+  },
+  "keywords": [
+    "nodejs",
+    "ejs",
+    "express",
+    "jwt"
+  ],
+  "author": "abdessamadsouilem",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CodersArkX/localServicesReview/issues"
+  },
+  "homepage": "https://github.com/CodersArkX/localServicesReview#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "express-validator": "^7.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "nodemon": "^3.0.1"
+  }
+}
