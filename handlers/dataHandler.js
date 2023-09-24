@@ -1,7 +1,6 @@
 const fs = require('fs');
 const path = require('path')
-const { body, validationResult } = require('express-validator');
-const bcrypt = require('bcryptjs');
+const { body} = require('express-validator');
 
 // implement readData function
 const readDataFromFile = (filePath) => {
@@ -9,8 +8,6 @@ const readDataFromFile = (filePath) => {
 
 	console.log(absolute_path)
     return JSON.parse(fs.readFileSync(absolute_path));
-	// console.log("################",lola);
-	// return lola;
 };
 
 // implement writeData function
@@ -37,17 +34,9 @@ const writeDataToFile = (filePath, data) => {
 			return {data : data}
 		})
 	}
-	// console.log(data);
-    // fs.appendFile(absolute_path, JSON.stringify(data, null, 2), err => {
-	// 	if (err) {
-	// 		return new Error(err.message);
-	// 	}
-	// 	// done!
-	// 	console.log(data);
-	// 	return {data : data}
-	// });
 };
 
+// * https://www.youtube.com/watch?v=UUgDpf6rirw [custom function]
 const validationData = [
 	body('email')
 		.trim()
@@ -68,58 +57,10 @@ const validationData = [
 		})
 ];
 
-const registerController = (req, res) => {
-		// Check for validation errors
-		const errors = validationResult(req);
-		if (!errors.isEmpty()) {
-			console.log(errors);
-			// return res.status(400).json({ errors: errors.array() });
-			res.render('register', { errors: errors.array() });
-		}
 
-		
-		const saltRounds = 10;
-		const { email, password } = req.body;
-		
-		// Check if the user already exist
-		const user = findUser(email, "../data/users.json");
-		
-		if (user)
-		{
-			// console.log(errors)
-			// errors.push({msg:"User already exist."})
-			res.render('register', { errors: [{msg:"User already exist."}] });
-		}
-		bcrypt.hash(password, saltRounds, function(err, hash) {
-			// Store hash in your password DB.
-			console.log(writeDataToFile("../data/users.json", {email, hash}));
-		});
-		
-		res.render('login', { message: 'Please LogIn', errors : ""})
-
-		// Sanitize the user input
-		//   const sanitizedData = {
-			//     email: xss(email),
-			//     password: xss(password),
-			//   };
-
-			// Store the sanitized data in a database or perform further actions
-			// Return success response
-			//   return res.status(200).json({ message: 'User registered successfully' });
-	};
-
-const findUser = (email, filePath) => {
-	let users = readDataFromFile(filePath);
-
-	console.log("findUSer : ",users)
-	console.log(users?.find( element => element.email === email))
-	return users?.find( element => element.email === email)
-}
 
 module.exports = {
     readDataFromFile,
     writeDataToFile,
-	validationData,
-	registerController,
-	findUser
+	validationData
 };

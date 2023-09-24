@@ -1,6 +1,7 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const { registerController, validationData} = require('../handlers/dataHandler');
+const {validationData} = require('../handlers/dataHandler');
+const {registerController} = require('../controller/userController')
 const router = express.Router();
 const SECRET_KEY = '';  
 
@@ -10,7 +11,6 @@ router.get('/register', (req, res) => {
 });
 
 // implement register route
-// * https://www.youtube.com/watch?v=UUgDpf6rirw
 router.post('/register', validationData, registerController
 	);
 	
