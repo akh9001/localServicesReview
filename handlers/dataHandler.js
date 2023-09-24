@@ -6,7 +6,7 @@ const { body} = require('express-validator');
 const readDataFromFile = (filePath) => {
 	let absolute_path = path.join(__dirname, filePath);
 
-	console.log(absolute_path)
+	// console.log(absolute_path)
     return JSON.parse(fs.readFileSync(absolute_path));
 };
 
@@ -56,8 +56,6 @@ const validationData = [
 			return true
 		})
 ];
-
-
 
 module.exports = {
     readDataFromFile,

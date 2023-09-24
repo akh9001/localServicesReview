@@ -3,7 +3,7 @@
 
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
@@ -11,13 +11,15 @@
 	<form action="/login" method="post">
 		<div class="container">
 			<% if (errors) { %>
-				<ul>
-					<% errors.forEach(error=> { %>
-						<li>
-							<%= error.msg %>
-						</li>
+				<div class="error">
+					<ul>
+						<% errors.forEach(error=> { %>
+							<li>
+								<%= error.msg %>
+							</li>
 						<%})%>
 				</ul>
+				</div>
 			<% } %>
 
 			<h1>Login</h1>
