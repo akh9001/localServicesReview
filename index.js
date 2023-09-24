@@ -15,6 +15,9 @@ app.set('view engine', 'ejs');
 
 app.use(cookieParser());
 
+// Serve static files from the "public" directory
+// ? in our case style.css
+app.use(express.static('public'));
 
 app.use(userRoutes);
 app.use(serviceRoutes);
