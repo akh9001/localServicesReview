@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const {validationResult} = require('express-validator')
 const {writeDataToFile, readDataFromFile} = require('../handlers/dataHandler')
+const jwt = require('jsonwebtoken');
 
 
 const usersFilePath = "../data/users.json";
@@ -68,17 +69,42 @@ const login = async (req, res) => {
 	{
 		try {
 			if (await bcrypt.compare(password, user.password))
-				res.render('home', {email: email})
+			{
+				const payload = {email: email}
+				const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET)
+				// //* How to pass the access token from the middleware ??
+				// res.json({accessToken: accessToken})
+				// * Set the token as a cookie with a specific name (e.g., 'token').
+				res.cookie('authToken', accessToken, 
+				{ 
+					maxAge: 3600000, // maxAge is in milliseconds (1 hour in this example)
+					httpOnly: true, // Cookie is accessible only via HTTP/HTTPS
+					secure: false, // Set to true in a production environment with HTTPS
+				});
+				res.render('home', {email: email, accessToken: accessToken})
+			}
 			else
 				throw new Error("Not Allowed")
 		} catch (error) {
+			console.log(error.message)
 			res.render('login', {errors: [{msg:"Wrong email or Password"}]})
 		}
 	}
 }
 
+const logout = (req, res) => {
+	// Clear the 'token' cookie by setting it to an empty string and setting an expiration date in the past.
+	res.cookie('authToken', '', { expires: new Date(0) });
+	// ? Or you can use this method
+	//    res.clearCookie('authToken');
+
+	// Redirect the user to a login page or any other appropriate page.
+	res.redirect('/login'); // You can change this URL to your login page.
+}
+
 module.exports = {
 	registerController,
 	findUser,
-	login
+	login,
+	logout
 };

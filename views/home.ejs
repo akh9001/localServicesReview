@@ -3,9 +3,35 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<style>
+		.btn {
+			background-color: #149c92;
+			color: white;
+			padding: 15px 25px;
+			border-radius: 10px;
+			text-decoration: none;
+			font-size: large;
+			cursor: pointer;
+			border: none;
+		}
+		.container
+		{
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin: 20px;
+		}
+	</style>
+	<title>Home</title>
 </head>
 <body>
-	<h1>Welcome <span style="color: blueviolet;"><%= email %></span></h1>
+	<div class="container">
+		<h1>Welcome <span style="color: blueviolet;"><%= email %></span></h1>
+		<!-- <h2>Your Access Token is  <span style="color: rgb(43, 189, 226);"><%= accessToken %></span></h2> -->
+		<!-- Logout button -->
+		<div>
+			<a href="/logout" class="btn"> logout</a>
+		</div>
+	</div>
 </body>
 </html>

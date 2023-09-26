@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">	<link rel="stylesheet" href="style_services.css">
+</head>
+
+<body>
+
+	<div class="box">
+		<% if (errors) { %>
+			<div class="error">
+				<ul>
+					<% errors.forEach(error=> { %>
+						<li>
+							<%= error.msg %>
+						</li>
+						<%})%>
+				</ul>
+			</div>
+			<% } %>
+		<h3>Create your own service:</h3>
+		<div id="form-show" class="box">
+			<form action="/services/add" method="post" >
+				<label for="title">Title</label>
+				<input type="text" id="title" name="title" placeholder="service title..">
+				
+				<label for="">Description</label>
+				<textarea name="description" cols="30" rows="5"></textarea> <br>
+				<input type="submit" value="Add">
+			</form>
+		</div>
+		<h2>List Services</h2>
+		<div class="container">
+			<div class="services">
+					<% if (services) { %>
+						<ul>
+							<% services.forEach(service=> { %>
+								<li>
+									<b><%= service.title %> : </b>
+									
+									<span><%= service.description %></span>
+									<!-- Delete Icon -->
+									<a href="/delete/<%= service.id %>">
+										<i class="fa-solid fa-pen-to-square" style="color: #ff7300;"></i>
+									</a>
+									<!-- Update Icon -->
+									<a href="/update/<%= service.id %>">
+										<i class="fa-solid fa-pen-to-square" style="color: #ff7300;"></i>
+									</a>
+								</li>
+							<%})%>
+						</ul>
+					<% } else {%>
+						<ul>
+							<li>
+								There is no services
+							</li>
+						</ul>
+					<%} %>
+			</div>
+			<a onclick=addService() id="btn-hide" class="btn"> Add Service</a>
+		</div>
+	</div>
+</body>
+<script>
+	function addService(){
+		// Hide the element to hide
+		document.getElementById('btn-hide').style.display = 'none';
+
+		// Show the element to show
+		document.getElementById('form-show').style.display = 'block';
+	}
+</script>
+
+</html>
+<!-- https://www.w3schools.com/css/tryit.asp?filename=trycss_forms -->
+<!-- https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_list_group -->

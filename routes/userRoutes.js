@@ -1,7 +1,7 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const {validationData} = require('../handlers/dataHandler');
-const {registerController, login} = require('../controller/userController')
+const {registerController, login, logout} = require('../controller/userController')
 const router = express.Router();
 const SECRET_KEY = '';  
 
@@ -23,6 +23,6 @@ router.get('/login', (req, res) => {
 router.post('/login', login);
 
 // implement logout route
-router.get('/logout',);
+router.get('/logout', logout);
 
 module.exports = router;
